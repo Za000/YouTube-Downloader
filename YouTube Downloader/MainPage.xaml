@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:YouTube_Downloader.ViewModels"
+             xmlns:views="clr-namespace:YouTube_Downloader.Views"
+             x:Class="YouTube_Downloader.MainPage">
+
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25">
+
+            <SearchBar 
+                x:Name="SearchVideo"
+                Placeholder="Adres URL video"
+                SearchCommand="{Binding PerformSearch}"
+                SearchCommandParameter="{Binding Text, Source={x:Reference SearchVideo}}"/>
+
+            <StackLayout>
+                <views:YouTubeVideoCollection Items="{Binding ObVideoItems}" Download="{Binding EnqueueDownload}"/>
+            </StackLayout>
+
+            <Label />
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YouTube_Downloader.Views.YoutubeQueueDownload"
+             xmlns:VM="clr-namespace:YouTube_Downloader.ViewModels"
+             Title="Kolejka pobierania"
+             x:Name="QueueDownload">
+
+    <ContentPage.BindingContext>
+        <VM:YoutubeQueueDownloadViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView Padding="45,25">
+       <StackLayout Orientation="Vertical">
+           <Label Text="Kolejka" Margin="0,0,0,25"/>
+           <CollectionView ItemsSource="{Binding DownloadQue}">
+               <CollectionView.ItemTemplate>
+                   <DataTemplate>
+                       <VerticalStackLayout Background="#f1f1f1" Padding="10">
+                           <HorizontalStackLayout>
+                               <StackLayout>
+                                   <Image Source="{Binding Vid.Thumbnails[0].Url}"/>
+                               </StackLayout>
+                               <VerticalStackLayout Padding="10,0">
+                                   <Label Text="{Binding Vid.Title}" FontAttributes="Bold"/>
+                                   <Label Text="{Binding Vid.Author}"/>
+                                   <Label Text="{Binding Vid.UploadDate, StringFormat='Dodano w {0:D}'}"/>
+                               </VerticalStackLayout>
+                           </HorizontalStackLayout>
+                           <ProgressBar Progress="{Binding progress}"/>
+                        </VerticalStackLayout>
+                   </DataTemplate>
+               </CollectionView.ItemTemplate>
+           </CollectionView>
+
+           <Label Text="Pobrane" Margin="0,45,0,15"/>
+           <CollectionView ItemsSource="{Binding DownloadedList}">
+               <CollectionView.ItemTemplate>
+                   <DataTemplate>
+                       <VerticalStackLayout Background="#f1f1f1" Padding="10">
+                           <HorizontalStackLayout>
+                               <StackLayout>
+                                   <Image Source="{Binding Vid.Thumbnails[0].Url}"/>
+                               </StackLayout>
+                               <VerticalStackLayout Padding="10,0">
+                                   <Label Text="{Binding Vid.Title}" FontAttributes="Bold"/>
+                                   <Label Text="{Binding Vid.Author}"/>
+                                   <Label Text="{Binding Vid.UploadDate, StringFormat='Dodano w {0:D}'}"/>
+                               </VerticalStackLayout>
+                           </HorizontalStackLayout>
+                       </VerticalStackLayout>
+                   </DataTemplate>
+               </CollectionView.ItemTemplate>
+           </CollectionView>
+        </StackLayout>
+    </ScrollView>
+</ContentPage>

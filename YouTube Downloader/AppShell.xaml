@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="YouTube_Downloader.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:YouTube_Downloader"
+    xmlns:Pages="clr-namespace:YouTube_Downloader.Views"
+    Shell.FlyoutBehavior="Disabled"
+    Shell.TabBarIsVisible="True"
+    Title="YouTube_Downloader">
+
+    <TabBar>
+        <Tab Title="Pobierz muzykę">
+            <ShellContent
+                Title="Pobierz muzykę"
+                ContentTemplate="{DataTemplate local:MainPage}"
+                Route="MainPage" />
+        </Tab>
+
+        <Tab Title="Kolejka pobierania">
+            <ShellContent
+                Title="Kolejka Pobierania"
+                ContentTemplate="{DataTemplate Pages:YoutubeQueueDownload}"
+                Route="MainPage" />
+        </Tab>
+    </TabBar>
+
+    
+
+</Shell>

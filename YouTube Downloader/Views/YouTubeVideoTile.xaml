@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="YouTube_Downloader.Views.YouTubeVideoTile"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Name="VideoTile">
+    <Frame Background="#f1f1f1" Padding="3" CornerRadius="3" BorderColor="#22000000">
+        <StackLayout Orientation="Horizontal" BindingContext="{Binding Item, Source={x:Reference Name=VideoTile}}">
+            <Frame Padding="0"  
+                   HorizontalOptions="Center"
+                   IsClippedToBounds="True"
+                   Margin="0,0,10,0"
+                   BorderColor="Transparent"
+                   BackgroundColor="Transparent"
+                   CornerRadius="5"
+                   x:Name="ImageFrame">
+                <Image Source="{Binding Thumbnails[0].Url}" Aspect="AspectFill" VerticalOptions="Fill" HorizontalOptions="Fill" 
+                       HeightRequest="{Binding Path= HeightRequest, Source={x:Reference ImageFrame}}"
+                       WidthRequest="{Binding Path= WidthRequest, Source={x:Reference ImageFrame}}"/>
+            </Frame>
+            <VerticalStackLayout HorizontalOptions="FillAndExpand">
+                <Label Text="{Binding Title}" FontAttributes="Bold"/>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Start"  Margin="0,5,0,0">
+                    <Label Text="{Binding Author.ChannelTitle, StringFormat='{0},'}" Margin="0,0,10,0"/>
+                    <Label Text="{Binding UploadDate.Date, StringFormat='Dodano: {0:dd MMMM yyyy}'}"/>
+                </StackLayout>
+                <StackLayout 
+                    Margin="0,5,0,5" 
+                    HorizontalOptions="Fill"
+                    IsVisible="{Binding Path=ObIsAudioLoading,Source={x:Reference VideoTile}, Converter={toolkit:InvertedBoolConverter}}">
+                    <StackLayout Orientation="Vertical">
+                        <ProgressBar Progress="{Binding ObAudioProgress, Source={x:Reference VideoTile}}" />
+                        <StackLayout Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label Text="{Binding Path=ObPlaybackDuration, Source={x:Reference VideoTile}}" VerticalOptions="Center" Margin="0,0,10,0" />
+                            <Button Text="▶" Clicked="Play_OnClicked" BorderWidth="3" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" HorizontalOptions="Center" FontSize="15" Padding="0"/>
+                            <Button Text="s" Clicked="Pause_OnClicked" BorderWidth="3" WidthRequest="30" HeightRequest="30" VerticalOptions="Center" HorizontalOptions="Center" FontSize="15" Padding="0"/>
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+                <ActivityIndicator IsRunning="{Binding Path=ObIsAudioLoading,Source={x:Reference VideoTile}}" IsVisible="{Binding Path=ObIsAudioLoading,Source={x:Reference VideoTile}}" HorizontalOptions="Start"></ActivityIndicator>
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Pobierz" Padding="5" Margin="0,0,10,0" Command="{Binding EnqueueDownloadCommand, Source={x:Reference VideoTile}}" CommandParameter="{Binding .}" Clicked="Button_OnClicked"/>
+                    <Button Text="Dodaj do kolejki" Padding="5" IsVisible="False"></Button>
+                </StackLayout>
+            </VerticalStackLayout>
+        </StackLayout>
+    </Frame>
+</ContentView>
